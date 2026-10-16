@@ -1,0 +1,408 @@
+{
+  "info": {
+    "name": "Casa del Dragón API",
+    "_postman_id": "c1a5a000-0000-0000-0000-000000000001",
+    "description": "Colección completa de 19 endpoints y pruebas de error para la API Casa del Dragón (TADB 202620 - Examen 03)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "dragonId",
+      "value": "c01ce52a-6d84-4aea-a4d0-091eb54dbb7a"
+    },
+    {
+      "key": "jineteId",
+      "value": "8b53afae-8dac-4e46-bf04-7b7fb32b21bf"
+    },
+    {
+      "key": "guaridaId",
+      "value": "fb35ce7a-ccf2-4254-a59a-00686d316011"
+    }
+  ],
+  "item": [
+    {
+      "name": "Dragones",
+      "item": [
+        {
+          "name": "01. GET /api/dragones - Listar todos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dragones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dragones"]
+            }
+          }
+        },
+        {
+          "name": "02. GET /api/dragones/:id - Buscar por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dragones/{{dragonId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dragones", "{{dragonId}}"]
+            }
+          }
+        },
+        {
+          "name": "03. GET /api/dragones/:id/jinetes - Jinetes del Dragón",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dragones/{{dragonId}}/jinetes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dragones", "{{dragonId}}", "jinetes"]
+            }
+          }
+        },
+        {
+          "name": "04. GET /api/dragones/:id/guaridas - Guaridas del Dragón",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dragones/{{dragonId}}/guaridas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dragones", "{{dragonId}}", "guaridas"]
+            }
+          }
+        },
+        {
+          "name": "05. POST /api/dragones - Crear dragón",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Sunfyre\",\n  \"color\": \"Dorado brillante\",\n  \"tamano\": \"Medio\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dragones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dragones"]
+            }
+          }
+        },
+        {
+          "name": "06. PUT /api/dragones - Actualizar dragón",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{dragonId}}\",\n  \"nombre\": \"Vhagar\",\n  \"color\": \"Bronce oscuro\",\n  \"tamano\": \"Colosal\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dragones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dragones"]
+            }
+          }
+        },
+        {
+          "name": "07. DELETE /api/dragones/:id - Eliminar dragón",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dragones/{{dragonId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dragones", "{{dragonId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Jinetes",
+      "item": [
+        {
+          "name": "08. GET /api/jinetes - Listar todos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/jinetes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "jinetes"]
+            }
+          }
+        },
+        {
+          "name": "09. GET /api/jinetes/:id - Buscar por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/jinetes/{{jineteId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "jinetes", "{{jineteId}}"]
+            }
+          }
+        },
+        {
+          "name": "10. GET /api/jinetes/:id/dragones - Dragones del Jinete",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/jinetes/{{jineteId}}/dragones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "jinetes", "{{jineteId}}", "dragones"]
+            }
+          }
+        },
+        {
+          "name": "11. POST /api/jinetes - Crear jinete",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Baela Targaryen\",\n  \"casa\": \"Targaryen\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/jinetes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "jinetes"]
+            }
+          }
+        },
+        {
+          "name": "12. PUT /api/jinetes - Actualizar jinete",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{jineteId}}\",\n  \"nombre\": \"Rhaenyra Targaryen\",\n  \"casa\": \"Targaryen\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/jinetes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "jinetes"]
+            }
+          }
+        },
+        {
+          "name": "13. DELETE /api/jinetes/:id - Eliminar jinete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/jinetes/{{jineteId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "jinetes", "{{jineteId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Guaridas",
+      "item": [
+        {
+          "name": "14. GET /api/guaridas - Listar todas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/guaridas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "guaridas"]
+            }
+          }
+        },
+        {
+          "name": "15. GET /api/guaridas/:id - Buscar por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/guaridas/{{guaridaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "guaridas", "{{guaridaId}}"]
+            }
+          }
+        },
+        {
+          "name": "16. GET /api/guaridas/:id/dragones - Dragones de la Guarida",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/guaridas/{{guaridaId}}/dragones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "guaridas", "{{guaridaId}}", "dragones"]
+            }
+          }
+        },
+        {
+          "name": "17. POST /api/guaridas - Crear guarida",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Nido de Águilas\",\n  \"ubicacion\": \"Valle de Arryn\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/guaridas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "guaridas"]
+            }
+          }
+        },
+        {
+          "name": "18. PUT /api/guaridas - Actualizar guarida",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{guaridaId}}\",\n  \"nombre\": \"Fosa del Dragón\",\n  \"ubicacion\": \"Desembarco del Rey, Tierras de la Corona\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/guaridas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "guaridas"]
+            }
+          }
+        },
+        {
+          "name": "19. DELETE /api/guaridas/:id - Eliminar guarida",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/guaridas/{{guaridaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "guaridas", "{{guaridaId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Casos de Error",
+      "item": [
+        {
+          "name": "400 - Solicitud inválida (UUID malformado)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dragones/formato-invalido",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dragones", "formato-invalido"]
+            }
+          }
+        },
+        {
+          "name": "400 - Solicitud inválida (Campo vacío)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"   \",\n  \"color\": \"Rojo\",\n  \"tamano\": \"Grande\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dragones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dragones"]
+            }
+          }
+        },
+        {
+          "name": "404 - No encontrado (Recurso inexistente)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dragones/00000000-0000-0000-0000-000000000000",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dragones", "00000000-0000-0000-0000-000000000000"]
+            }
+          }
+        },
+        {
+          "name": "409 - Conflicto (Nombre duplicado)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Syrax\",\n  \"color\": \"Amarillo\",\n  \"tamano\": \"Mediano\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dragones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dragones"]
+            }
+          }
+        },
+        {
+          "name": "409 - Conflicto (Eliminar con relaciones)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dragones/{{dragonId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dragones", "{{dragonId}}"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
