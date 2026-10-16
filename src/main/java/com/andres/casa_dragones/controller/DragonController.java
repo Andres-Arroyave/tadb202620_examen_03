@@ -46,8 +46,8 @@ public class DragonController {
     }
 
     @PostMapping
-    public ResponseEntity<Dragon> crear(@RequestBody Dragon dragon) {
-        Dragon creado = dragonService.crear(dragon);
+    public ResponseEntity<Dragon> crear(@RequestBody com.andres.casa_dragones.dto.DragonCrearDto dto) {
+        Dragon creado = dragonService.crear(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 

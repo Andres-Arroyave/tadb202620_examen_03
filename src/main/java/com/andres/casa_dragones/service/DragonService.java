@@ -57,14 +57,14 @@ public class DragonService {
         return dragonRepository.listarGuaridasPorDragonId(idValido);
     }
 
-    public Dragon crear(Dragon dragon) {
-        if (dragon == null) {
+    public Dragon crear(com.andres.casa_dragones.dto.DragonCrearDto dto) {
+        if (dto == null) {
             throw new ValidacionException("Los datos del dragón son requeridos.");
         }
 
-        String nombre = normalizarTexto(dragon.nombre(), "nombre", 100);
-        String color = normalizarTexto(dragon.color(), "color", 50);
-        String tamano = normalizarTexto(dragon.tamano(), "tamano", 50);
+        String nombre = normalizarTexto(dto.nombre(), "nombre", 100);
+        String color = normalizarTexto(dto.color(), "color", 50);
+        String tamano = normalizarTexto(dto.tamano(), "tamano", 50);
 
         // Validar unicidad de nombre antes de insertar
         Optional<Dragon> existente = dragonRepository.buscarPorNombre(nombre);

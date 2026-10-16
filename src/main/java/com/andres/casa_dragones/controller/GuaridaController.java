@@ -40,8 +40,8 @@ public class GuaridaController {
     }
 
     @PostMapping
-    public ResponseEntity<Guarida> crear(@RequestBody Guarida guarida) {
-        Guarida creada = guaridaService.crear(guarida);
+    public ResponseEntity<Guarida> crear(@RequestBody com.andres.casa_dragones.dto.GuaridaCrearDto dto) {
+        Guarida creada = guaridaService.crear(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(creada);
     }
 

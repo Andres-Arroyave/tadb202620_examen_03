@@ -40,8 +40,8 @@ public class JineteController {
     }
 
     @PostMapping
-    public ResponseEntity<Jinete> crear(@RequestBody Jinete jinete) {
-        Jinete creado = jineteService.crear(jinete);
+    public ResponseEntity<Jinete> crear(@RequestBody com.andres.casa_dragones.dto.JineteCrearDto dto) {
+        Jinete creado = jineteService.crear(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 

@@ -46,13 +46,13 @@ public class GuaridaService {
         return guaridaRepository.listarDragonesPorGuaridaId(idValido);
     }
 
-    public Guarida crear(Guarida guarida) {
-        if (guarida == null) {
+    public Guarida crear(com.andres.casa_dragones.dto.GuaridaCrearDto dto) {
+        if (dto == null) {
             throw new ValidacionException("Los datos de la guarida son requeridos.");
         }
 
-        String nombre = normalizarTexto(guarida.nombre(), "nombre", 100);
-        String ubicacion = normalizarTexto(guarida.ubicacion(), "ubicacion", 150);
+        String nombre = normalizarTexto(dto.nombre(), "nombre", 100);
+        String ubicacion = normalizarTexto(dto.ubicacion(), "ubicacion", 150);
 
         Optional<Guarida> existente = guaridaRepository.buscarPorNombre(nombre);
         if (existente.isPresent()) {

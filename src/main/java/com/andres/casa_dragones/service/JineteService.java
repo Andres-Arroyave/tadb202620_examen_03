@@ -46,13 +46,13 @@ public class JineteService {
         return jineteRepository.listarDragonesPorJineteId(idValido);
     }
 
-    public Jinete crear(Jinete jinete) {
-        if (jinete == null) {
+    public Jinete crear(com.andres.casa_dragones.dto.JineteCrearDto dto) {
+        if (dto == null) {
             throw new ValidacionException("Los datos del jinete son requeridos.");
         }
 
-        String nombre = normalizarTexto(jinete.nombre(), "nombre", 100);
-        String casa = normalizarTexto(jinete.casa(), "casa", 100);
+        String nombre = normalizarTexto(dto.nombre(), "nombre", 100);
+        String casa = normalizarTexto(dto.casa(), "casa", 100);
 
         Optional<Jinete> existente = jineteRepository.buscarPorNombre(nombre);
         if (existente.isPresent()) {
