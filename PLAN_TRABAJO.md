@@ -1,16 +1,15 @@
 # Plan de Trabajo y Bitácora de Desarrollo: Examen 03 TADB (API "Casa del Dragón")
 
 > **Asignatura:** Tópicos Avanzados de Bases de Datos (TADB 202620)  
-> **Estudiante:** Andrés Arroyo  
-> **Entrega:** miércoles 21 de octubre de 2026, 6:00 pm (GMT-5).  
+> **Estudiante:** Andrés Arroyave Londoño    
 > **Bonificación elegida:** Lenguaje distinto de C# (**Java 21 + Spring Boot 4.x**) y gestor de BD distinto de PostgreSQL (**MySQL 8+**).
 
 ---
 
 ## 1. Contexto Técnico y Arquitectura
 
-### 1.1. Enunciado y Modelo
-API REST basada en el **patrón repositorio** sobre tres entidades principales (`dragon`, `jinete`, `guarida`) y dos tablas intermedias para relaciones muchos a muchos (`jinete_dragon`, `dragon_guarida`). Todos los identificadores son de tipo **UUID** (`CHAR(36)`).
+### 1.1. Modelo
+API REST basada en el **patrón repositorio** sobre tres entidades principales (`dragon`, `jinete`, `guarida`) y dos tablas intermedias para relaciones muchos a muchos (`jinete_dragon`, `dragon_guarida`).
 
 | Capa | Responsabilidad según el enunciado | Implementación en este proyecto |
 |---|---|---|
@@ -31,7 +30,7 @@ API REST basada en el **patrón repositorio** sobre tres entidades principales (
 
 ## 2. Decisiones de Diseño
 
-1. **Integridad referencial `RESTRICT` (Decisión D1):**  
+1. **Integridad referencial `RESTRICT`:**  
    Las tablas intermedias no aplican `CASCADE`. Como la API no dispone de endpoints para re-asociar relaciones muchos a muchos, un registro con relaciones activas no puede eliminarse vía API y retorna `409 Conflict`. Solo se permite eliminar entidades sin relaciones.
 2. **Contrato JSON:**  
    Se usa `id`, `nombre`, `color`, `tamano` (soportando también el alias `"tamaño"` con `@JsonAlias`).
