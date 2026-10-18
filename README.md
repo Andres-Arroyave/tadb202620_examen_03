@@ -23,25 +23,22 @@
 ## 3. Configuración y Despliegue de la Base de Datos
 
 ### 3.1. Contenedor MySQL
-El proyecto se diseñó para conectarse a una base de datos MySQL local (`casa_dragon`). Para crear y levantar el contenedor utilizando las variables de entorno de tu entorno:
+Para levantar un contenedor MySQL local limpio (únicamente con la clave de administración `root`):
 ```bash
 docker run -d --name mysql-dev -p 3306:3306 \
-  -e MYSQL_DATABASE=casa_dragon \
-  -e MYSQL_USER=${DB_USERNAME} \
-  -e MYSQL_PASSWORD=${DB_PASSWORD} \
   -e MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD:-RootPass123*} \
   mysql:latest
 ```
 
 ### 3.2. Orden de Ejecución de Scripts SQL
-Los scripts se encuentran en la carpeta `sql/` y deben ejecutarse secuencialmente en **DataGrip** (o consola MySQL):
+Una vez levantado el motor MySQL, conéctate desde **DataGrip** con el usuario administrativo (`root`) y ejecuta secuencialmente los scripts ubicados en `sql/`:
 
-0. **`sql/00_inicial.sql`**: Creación de la base de datos `casa_dragon`, creación del usuario de aplicación `'casa_dragon_andres'@'%'` y asignación de privilegios mínimos específicos (DDL, DML, vistas y rutinas/procedimientos).
+0. **`sql/00_inicial.sql`**: Crea la base de datos `casa_dragon`, crea el usuario de aplicación `'casa_dragon_andres'@'%'` y le asigna los privilegios mínimos necesarios (DDL, DML, vistas y procedimientos).
 1. **`sql/01_schema.sql`**: Crea las tablas principales (`dragon`, `jinete`, `guarida`), las intermedias de relación muchos a muchos (`jinete_dragon`, `dragon_guarida`) con `RESTRICT`, llaves primarias en formato UUID `CHAR(36)`, restricciones de unicidad y restricciones `CHECK`.
 2. **`sql/02_datos.sql`**: Inserta los datos iniciales de prueba con identificadores UUID fijos.
 3. **`sql/03_procedimientos.sql`**: Crea los 9 procedimientos almacenados para las operaciones de mutación (`sp_*_insertar`, `sp_*_actualizar`, `sp_*_eliminar`).
 
-En **DataGrip**, simplemente abre cada archivo `.sql` en el orden indicado y ejecútalo directamente sobre la consola de la base de datos.
+> **Nota de seguridad:** La API de Spring Boot **no utiliza el usuario root**. Toda la conexión de la aplicación se realiza exclusivamente a través del usuario de mínimos privilegios (`casa_dragon_andres`), cuyas credenciales se configuran en las variables de entorno del sistema operativo (`DB_USERNAME` y `DB_PASSWORD`).
 
 ---
 
