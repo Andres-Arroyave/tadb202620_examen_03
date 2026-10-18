@@ -20,7 +20,7 @@ Este documento complementa el desarrollo de la API **Casa del Dragón** explican
 
 ---
 
-## 2. Qué NO resuelve Spring y fue implementado por nosotros
+## 2. Qué NO resuelve Spring y fue implementado
 
 Aunque Spring Boot proporciona el andamiaje y la infraestructura, las reglas centrales de la solución fueron diseñadas e implementadas por el desarrollador:
 
