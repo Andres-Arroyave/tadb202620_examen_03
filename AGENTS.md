@@ -1,7 +1,7 @@
 # Plan de Trabajo y Guía de Interacción con IA (AGENTS.md)
 
 > **Asignatura:** Tópicos Avanzados de Bases de Datos (TADB 202620)  
-> **Estudiante:** Andrés Arroyave Londoño  
+> **Estudiante:** Andrés Arroyave Londoño (ID SIGAA: 00054728)  
 > **Propósito:** Documentar la interacción, instrucciones de prompting y colaboración con el agente de IA para el desarrollo de la API "Casa del Dragón".
 
 ---

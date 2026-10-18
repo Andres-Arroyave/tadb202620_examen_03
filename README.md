@@ -6,7 +6,7 @@
 ---
 
 ## 1. Integrantes
-- **Estudiante:** Andrés Arroyo
+- **Estudiante:** Andrés Arroyave Londoño (ID SIGAA: 00054728)
 
 ---
 
@@ -15,31 +15,32 @@
 - **Java JDK:** Versión 21 o superior.
 - **Gradle:** Wrapper incluido en el repositorio (`gradlew` / `gradlew.bat`).
 - **MySQL:** Versión 8.0.16 o superior (necesaria para soporte de expresiones por defecto `UUID()` y evaluación de restricciones `CHECK`).
-- **Docker:** Para levantar o gestionar el contenedor local MySQL (opcional si se dispone de MySQL Server nativo).
-- **Cliente MySQL / Workbench / Postman / Bruno**.
+- **Docker:** Para levantar o gestionar el contenedor local MySQL (o MySQL Server nativo).
+- **IDE / Clientes de Base de Datos y Pruebas:** DataGrip (o cliente MySQL compatible), Postman / Swagger UI.
 
 ---
 
 ## 3. Configuración y Despliegue de la Base de Datos
 
 ### 3.1. Contenedor MySQL
-El proyecto se diseñó para conectarse a un contenedor MySQL local. Para crearlo y levantarlo con las credenciales esperadas:
+El proyecto se diseñó para conectarse a una base de datos MySQL local (`casa_dragon`). Para crear y levantar el contenedor utilizando las variables de entorno de tu entorno:
 ```bash
-docker run -d --name mysql-dev -p 3306:3306 -e MYSQL_ROOT_PASSWORD=Andres1018. -e MYSQL_DATABASE=casa_dragon -e MYSQL_USER=casa_dragon_andres -e MYSQL_PASSWORD=Dragon_Andres* mysql:latest
+docker run -d --name mysql-dev -p 3306:3306 \
+  -e MYSQL_DATABASE=casa_dragon \
+  -e MYSQL_USER=${DB_USERNAME} \
+  -e MYSQL_PASSWORD=${DB_PASSWORD} \
+  -e MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD:-RootPass123*} \
+  mysql:latest
 ```
 
 ### 3.2. Orden de Ejecución de Scripts SQL
-Los scripts se encuentran en la carpeta `sql/` y deben ejecutarse en el siguiente orden:
+Los scripts se encuentran en la carpeta `sql/` y deben ejecutarse secuencialmente en **DataGrip** (o consola MySQL):
 
 1. **`sql/01_schema.sql`**: Crea las tablas principales (`dragon`, `jinete`, `guarida`), las intermedias de relación muchos a muchos (`jinete_dragon`, `dragon_guarida`) con `RESTRICT`, llaves primarias en formato UUID `CHAR(36)`, restricciones de unicidad y restricciones `CHECK`.
 2. **`sql/02_datos.sql`**: Inserta los datos iniciales de prueba con identificadores UUID fijos.
 3. **`sql/03_procedimientos.sql`**: Crea los 9 procedimientos almacenados para las operaciones de mutación (`sp_*_insertar`, `sp_*_actualizar`, `sp_*_eliminar`).
 
-> [!IMPORTANT]
-> Debido al uso de la directiva `DELIMITER`, el script `03_procedimientos.sql` debe ejecutarse mediante el cliente de consola MySQL o MySQL Workbench:
-> ```bash
-> cmd.exe /c "docker exec -i mysql-dev mysql -u casa_dragon_andres -pDragon_Andres* casa_dragon < sql/03_procedimientos.sql"
-> ```
+En **DataGrip**, simplemente abre cada archivo `.sql` en el orden indicado y ejecútalo directamente sobre la consola de la base de datos `casa_dragon`.
 
 ---
 

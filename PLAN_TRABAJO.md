@@ -1,7 +1,7 @@
 # Plan de Trabajo y Bitácora de Desarrollo: Examen 03 TADB (API "Casa del Dragón")
 
 > **Asignatura:** Tópicos Avanzados de Bases de Datos (TADB 202620)  
-> **Estudiante:** Andrés Arroyave Londoño    
+> **Estudiante:** Andrés Arroyave Londoño (ID SIGAA: 00054728)  
 > **Bonificación elegida:** Lenguaje distinto de C# (**Java 21 + Spring Boot 4.x**) y gestor de BD distinto de PostgreSQL (**MySQL 8+**).
 
 ---
