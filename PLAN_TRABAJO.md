@@ -45,8 +45,7 @@ API REST basada en el **patrón repositorio** sobre tres entidades principales (
 
 ### Fase 0: Verificación del Entorno
 - [x] Contenedor MySQL 8.x corriendo en local con base de datos `casa_dragon`.
-- [x] Verificación de creación de las 5 tablas y sus restricciones (`ck_*`, `uk_*`, `fk_*`).
-- [x] Verificación de versión de motor: MySQL 8.0.x (soporte para expresiones por defecto `UUID()` y evaluación real de restricciones `CHECK`).
+- [x] Verificación de las 5 tablas y sus restricciones (`ck_*`, `uk_*`, `fk_*`).
 - [x] Configuración de compilación con Gradle Wrapper (`build.gradle`, Java 21, dependencias `spring-boot-starter-web`, `spring-boot-starter-jdbc`, `mysql-connector-j`, `spring-boot-starter-validation`).
 - [x] Archivo `.gitignore` configurado para excluir artefactos de compilación (`build/`, `.gradle/`, `.idea/`).
 
@@ -80,34 +79,22 @@ Tomcat started on port 8080 (http) with context path '/'
   - Dragón con 2 o más guaridas: *Caraxes* registrado en Pozo Dragón y Monte Dragón.
 - [x] Generación de los 5 archivos CSV sincronizados con los UUIDs exactos de la base de datos en `datos/`:
   - `dragon.csv`, `jinete.csv`, `guarida.csv`, `jinete_dragon.csv`, `dragon_guarida.csv`.
-- [x] Verificación de carga en base de datos:
-  - `SELECT COUNT(*) FROM dragon;` $\rightarrow$ 5 filas.
-  - `SELECT COUNT(*) FROM jinete;` $\rightarrow$ 5 filas.
-  - `SELECT COUNT(*) FROM guarida;` $\rightarrow$ 4 filas.
-  - `SELECT COUNT(*) FROM jinete_dragon;` $\rightarrow$ 6 filas.
-  - `SELECT COUNT(*) FROM dragon_guarida;` $\rightarrow$ 6 filas.
+- [x] Verificación de carga en base de datos
 
 ---
 
 ### Fase 3: Procedimientos Almacenados (`sql/03_procedimientos.sql`)
-- [x] Implementación de los 9 procedimientos almacenados para las operaciones de mutación:
+- [x] Implementación de los 9 procedimientos almacenados:
   - `sp_dragon_insertar`, `sp_dragon_actualizar`, `sp_dragon_eliminar`.
   - `sp_jinete_insertar`, `sp_jinete_actualizar`, `sp_jinete_eliminar`.
   - `sp_guarida_insertar`, `sp_guarida_actualizar`, `sp_guarida_eliminar`.
 - [x] Generación interna del UUID mediante `SET p_id = UUID();` en los procedimientos de inserción retornando el parámetro `OUT p_id`.
 - [x] Manejo de errores por unicidad delegados al motor (código de error 1062) para traducción limpia en Spring a `DuplicateKeyException` $\rightarrow$ `409 Conflict`.
-- [x] Ejecución con cliente MySQL mediante sintaxis `DELIMITER //`.
 
-**Evidencia de ejecución manual:**
-```sql
-CALL sp_dragon_insertar('Balerion', 'Negro', 'Colosal', @nuevo_id);
-SELECT @nuevo_id; -- Retorna UUID generado
-CALL sp_dragon_insertar('Balerion', 'Negro', 'Colosal', @otro_id); -- Falla con Error 1062 Duplicate entry
-```
 
 ---
 
-### Fase 4: Implementación Completa de Dragones (Módulo Base)
+### Fase 4: Implementación de Dragones (Módulo Base)
 - [x] Modelo `Dragon` (record Java con soporte para `@JsonAlias("tamaño")`).
 - [x] `DragonCrearDto` para desacoplar las altas del identificador primario.
 - [x] Interfaz `DragonRepository` y su implementación `DragonRepositoryImpl`:
@@ -128,14 +115,12 @@ CALL sp_dragon_insertar('Balerion', 'Negro', 'Colosal', @otro_id); -- Falla con 
 
 ---
 
-### Fase 6: Pruebas, Colecciones y Diagrama ER
+### Fase 6: Pruebas y Colecciones
 - [x] Colección completa de Postman en `docs/coleccion/Casa_Dragones.postman_collection.json` cubriendo los 19 endpoints y pruebas de error (`400`, `404`, `409`).
-- [x] Diagrama relacional en notación Pata de Gallo exportado en formato JPG con fondo blanco: `docs/diagrama_relacional.jpg`.
 - [x] Swagger UI / OpenAPI 3 configurado con `springdoc-openapi` en `/swagger-ui/index.html`.
 
 ---
 
-### Fase 7: Documentación y Entrega
+### Fase 7: Documentación 
 - [x] `README.md` detallado con requisitos, pasos de despliegue, arquitectura, tabla de endpoints, ejemplos de `curl` y decisiones de diseño.
 - [x] `docs/SPRING.md` con el análisis solicitado por el docente: qué resuelve Spring, qué se haría sin él y qué fue implementado a mano.
-- [x] Repositorio privado en GitHub con el colaborador docente invitado (`jdrodas`).

@@ -55,17 +55,16 @@ El estudiante realizó la conceptualización, verificación y el núcleo base de
 
 A partir de la plantilla y arquitectura base establecida por el estudiante, se colaboró con la IA para extender y completar los siguientes entregables:
 
-#### Fase 5: Implementación de Jinetes y Guaridas (Asistida por IA)
+#### Fase 5: Implementación de Jinetes y Guaridas
 - [x] Replicación del patrón de Dragones en el módulo de **Jinetes** (Controller, Service, Repository) completando los 6 endpoints (CRUD y consulta cruzada `/api/jinetes/{id}/dragones`).
 - [x] Replicación del patrón en el módulo de **Guaridas** (Controller, Service, Repository) completando los 6 endpoints (CRUD y consulta cruzada `/api/guaridas/{id}/dragones`).
 - [x] Implementación de DTOs de creación (`DragonCrearDto`, `JineteCrearDto`, `GuaridaCrearDto`) para desacoplar el `id` en las peticiones `POST`.
 
-#### Fase 6: Colección de Pruebas y Diagrama ER (Asistida por IA)
+#### Fase 6: Colección de Pruebas
 - [x] Creación de la colección completa de Postman en `docs/coleccion/Casa_Dragones.postman_collection.json` con los 19 endpoints y pruebas de casos de error.
-- [x] Generación y renderizado del diagrama relacional en notación Pata de Gallo (Crow's foot) con fondo blanco en `docs/diagrama_relacional.jpg`.
 - [x] Integración de Swagger UI / OpenAPI interactivo en `/swagger-ui/index.html`.
 
-#### Fase 7: Documentación Técnica de Cierre (Asistida por IA)
+#### Fase 7: Documentación Técnica de Cierre
 - [x] Elaboración de `docs/SPRING.md` con el análisis crítico de la intervención del framework frente al desarrollo artesanal.
 - [x] Refinamiento de `README.md` con guías de despliegue, Swagger, Postman, diagrama y ejemplos con cURL.
 - [x] Mantenimiento de bitácora y registro de prompts e interacción en `AGENTS.md`.
