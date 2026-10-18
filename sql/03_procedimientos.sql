@@ -1,12 +1,8 @@
--- =============================================================================
--- TADB 202620 - Examen 03 - Patrón Repositorio
--- Script 03: Procedimientos almacenados para Dragones, Jinetes y Guaridas
---
--- Criterios:
--- 1. Inserciones generan el UUID en el SP (SET p_id = UUID()) y lo retornan en OUT p_id.
--- 2. No se capturan ni ocultan errores de duplicados (1062) para que Spring maneje DuplicateKeyException.
--- 3. La existencia previa se verifica en la capa de servicio (no depender de ROW_COUNT()).
--- =============================================================================
+/*Examen No. 3
+ Motor: MySQL
+ Autor: Andres Arroyave Londoño
+ ID SIGAA: 000547528
+ */
 
 DELIMITER $$
 

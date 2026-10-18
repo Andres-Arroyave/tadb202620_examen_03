@@ -1,7 +1,8 @@
--- =============================================================================
--- TADB 202620 - Examen 03 - Patrón Repositorio
--- Script 02: Datos iniciales de prueba (UUID fijos en minúsculas)
--- =============================================================================
+/*Examen No. 3
+ Motor: MySQL
+ Autor: Andres Arroyave Londoño
+ ID SIGAA: 000547528
+ */
 
 -- Dragones (5)
 INSERT INTO dragon (id, nombre, color, tamano) VALUES

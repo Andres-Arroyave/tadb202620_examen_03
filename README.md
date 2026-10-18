@@ -36,11 +36,12 @@ docker run -d --name mysql-dev -p 3306:3306 \
 ### 3.2. Orden de Ejecución de Scripts SQL
 Los scripts se encuentran en la carpeta `sql/` y deben ejecutarse secuencialmente en **DataGrip** (o consola MySQL):
 
+0. **`sql/00_inicial.sql`**: Creación de la base de datos `casa_dragon`, creación del usuario de aplicación `'casa_dragon_andres'@'%'` y asignación de privilegios mínimos específicos (DDL, DML, vistas y rutinas/procedimientos).
 1. **`sql/01_schema.sql`**: Crea las tablas principales (`dragon`, `jinete`, `guarida`), las intermedias de relación muchos a muchos (`jinete_dragon`, `dragon_guarida`) con `RESTRICT`, llaves primarias en formato UUID `CHAR(36)`, restricciones de unicidad y restricciones `CHECK`.
 2. **`sql/02_datos.sql`**: Inserta los datos iniciales de prueba con identificadores UUID fijos.
 3. **`sql/03_procedimientos.sql`**: Crea los 9 procedimientos almacenados para las operaciones de mutación (`sp_*_insertar`, `sp_*_actualizar`, `sp_*_eliminar`).
 
-En **DataGrip**, simplemente abre cada archivo `.sql` en el orden indicado y ejecútalo directamente sobre la consola de la base de datos `casa_dragon`.
+En **DataGrip**, simplemente abre cada archivo `.sql` en el orden indicado y ejecútalo directamente sobre la consola de la base de datos.
 
 ---
 

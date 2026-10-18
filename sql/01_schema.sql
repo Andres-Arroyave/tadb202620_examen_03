@@ -1,17 +1,8 @@
--- =============================================================================
--- TADB 202620 - Examen 03 - Patrón Repositorio
--- Casa del Dragón: modelo relacional (MySQL 8.x)
--- Script 01: creación de base de datos, tablas y restricciones
---
--- Convenciones de nomenclatura:
---   * Todo en minúsculas y snake_case, sin tildes ni eñ (tamano, ubicacion).
---   * Nombres de tabla en singular.
---   * PK:            id
---   * FK:            <tabla_referenciada>_id
---   * Constraints:   pk_<tabla>, fk_<tabla>_<referenciada>, uk_<tabla>_<campo(s)>,
---                    ck_<tabla>_<campo>
---   * Todas las claves (PK y FK) son char(36) para almacenar un UUID textual.
--- =============================================================================
+/*Examen No. 3
+ Motor: MySQL
+ Autor: Andres Arroyave Londoño
+ ID SIGAA: 000547528
+ */
 
 -- -----------------------------------------------------------------------------
 -- Entidades principales
