@@ -47,8 +47,8 @@ Una vez levantado el motor MySQL, conéctate desde **DataGrip** con el usuario a
 La aplicación se ejecuta a través del Gradle Wrapper. La configuración de conexión a la base de datos se toma estrictamente de las variables de entorno del sistema operativo (sin credenciales quemadas en el código):
 
 - `DB_URL`: `${DB_URL:jdbc:mysql://localhost:3306/casa_dragon?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=America/Bogota}`
-- `DB_USERNAME`: Variable de entorno obligatoria (ej. `casa_dragon_andres`)
-- `DB_PASSWORD`: Variable de entorno obligatoria (ej. `Dragon_Andres*`)
+- `DB_USERNAME`: Variable de entorno obligatoria 
+- `DB_PASSWORD`: Variable de entorno obligatoria 
 
 Para compilar y correr:
 ```bash
