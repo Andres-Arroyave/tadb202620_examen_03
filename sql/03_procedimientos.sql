@@ -10,7 +10,7 @@ DELIMITER $$
 -- Procedimientos para DRAGON
 -- -----------------------------------------------------------------------------
 
-DROP PROCEDURE IF EXISTS sp_dragon_insertar$$
+$$
 CREATE PROCEDURE sp_dragon_insertar(
     IN  p_nombre VARCHAR(100),
     IN  p_color  VARCHAR(50),
@@ -23,7 +23,7 @@ BEGIN
     VALUES (p_id, p_nombre, p_color, p_tamano);
 END$$
 
-DROP PROCEDURE IF EXISTS sp_dragon_actualizar$$
+$$
 CREATE PROCEDURE sp_dragon_actualizar(
     IN p_id     CHAR(36),
     IN p_nombre VARCHAR(100),
@@ -38,7 +38,7 @@ BEGIN
     WHERE id = p_id;
 END$$
 
-DROP PROCEDURE IF EXISTS sp_dragon_eliminar$$
+$$
 CREATE PROCEDURE sp_dragon_eliminar(
     IN p_id CHAR(36)
 )
@@ -51,7 +51,7 @@ END$$
 -- Procedimientos para JINETE
 -- -----------------------------------------------------------------------------
 
-DROP PROCEDURE IF EXISTS sp_jinete_insertar$$
+$$
 CREATE PROCEDURE sp_jinete_insertar(
     IN  p_nombre VARCHAR(100),
     IN  p_casa   VARCHAR(100),
@@ -63,7 +63,7 @@ BEGIN
     VALUES (p_id, p_nombre, p_casa);
 END$$
 
-DROP PROCEDURE IF EXISTS sp_jinete_actualizar$$
+$$
 CREATE PROCEDURE sp_jinete_actualizar(
     IN p_id     CHAR(36),
     IN p_nombre VARCHAR(100),
@@ -76,7 +76,7 @@ BEGIN
     WHERE id = p_id;
 END$$
 
-DROP PROCEDURE IF EXISTS sp_jinete_eliminar$$
+$$   
 CREATE PROCEDURE sp_jinete_eliminar(
     IN p_id CHAR(36)
 )
@@ -89,7 +89,7 @@ END$$
 -- Procedimientos para GUARIDA
 -- -----------------------------------------------------------------------------
 
-DROP PROCEDURE IF EXISTS sp_guarida_insertar$$
+$$
 CREATE PROCEDURE sp_guarida_insertar(
     IN  p_nombre    VARCHAR(100),
     IN  p_ubicacion VARCHAR(150),
@@ -101,7 +101,7 @@ BEGIN
     VALUES (p_id, p_nombre, p_ubicacion);
 END$$
 
-DROP PROCEDURE IF EXISTS sp_guarida_actualizar$$
+$$
 CREATE PROCEDURE sp_guarida_actualizar(
     IN p_id        CHAR(36),
     IN p_nombre    VARCHAR(100),
@@ -114,7 +114,7 @@ BEGIN
     WHERE id = p_id;
 END$$
 
-DROP PROCEDURE IF EXISTS sp_guarida_eliminar$$
+$$
 CREATE PROCEDURE sp_guarida_eliminar(
     IN p_id CHAR(36)
 )
