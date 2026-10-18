@@ -45,11 +45,11 @@ Los scripts se encuentran en la carpeta `sql/` y deben ejecutarse en el siguient
 
 ## 4. Ejecución de la API
 
-La aplicación se ejecuta a través del Gradle Wrapper. La configuración de conexión a la base de datos se toma de variables de entorno con valores por defecto preparados para el entorno de desarrollo:
+La aplicación se ejecuta a través del Gradle Wrapper. La configuración de conexión a la base de datos se toma estrictamente de las variables de entorno del sistema operativo (sin credenciales quemadas en el código):
 
 - `DB_URL`: `${DB_URL:jdbc:mysql://localhost:3306/casa_dragon?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=America/Bogota}`
-- `DB_USERNAME` (o `DB_USER`): `${DB_USERNAME:casa_dragon_andres}`
-- `DB_PASSWORD`: `${DB_PASSWORD:Dragon_Andres*}`
+- `DB_USERNAME`: Variable de entorno obligatoria (ej. `casa_dragon_andres`)
+- `DB_PASSWORD`: Variable de entorno obligatoria (ej. `Dragon_Andres*`)
 
 Para compilar y correr:
 ```bash
