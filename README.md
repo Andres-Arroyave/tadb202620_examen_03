@@ -138,16 +138,78 @@ Todos los errores devuelven un objeto JSON consistente:
 
 ---
 
-## 7. Documentación Adicional y Colecciones
+## 7. Documentación Adicional, Swagger y Colección de Pruebas
 
-- **Análisis de Spring Boot:** Consulta el archivo [`docs/SPRING.md`](file:///c:/Users/arroy/OneDrive%20-%20UPB/Documentos/GitHub/Casa_Dragones/docs/SPRING.md) para la explicación sobre qué resuelve el framework, qué haríamos sin él y qué fue implementado a mano.
-- **Colección de Pruebas (Postman / Bruno):** Ubicada en [`docs/coleccion/Casa_Dragones.postman_collection.json`](file:///c:/Users/arroy/OneDrive%20-%20UPB/Documentos/GitHub/Casa_Dragones/docs/coleccion/Casa_Dragones.postman_collection.json), lista para importar y probar los 19 endpoints y los casos de error.
-- **Datos y CSV:** Los archivos planos sincronizados con la BD se encuentran en `datos/` (`dragon.csv`, `jinete.csv`, `guarida.csv`, `jinete_dragon.csv`, `dragon_guarida.csv`).
-- **Diagrama Relacional:** Ubicado en `docs/diagrama_relacional.jpg`.
+### 7.1. Documentación Interactiva OpenAPI / Swagger UI
+La API cuenta con Swagger UI integrado mediante `springdoc-openapi-starter-webmvc-ui`. Una vez la aplicación esté corriendo, se puede interactuar con los 19 endpoints y consultar sus esquemas JSON directamente en el navegador:
+- **Swagger UI:** [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+- **Especificación OpenAPI (JSON):** [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
+
+### 7.2. Colección de Pruebas (Postman / Bruno)
+En la carpeta [`docs/coleccion/`](docs/coleccion/) se incluye la colección completa [`Casa_Dragones.postman_collection.json`](docs/coleccion/Casa_Dragones.postman_collection.json).
+
+**Instrucciones de uso en Postman:**
+1. Abrir Postman y hacer clic en **Import** (esquina superior izquierda).
+2. Arrastrar o seleccionar el archivo `docs/coleccion/Casa_Dragones.postman_collection.json`.
+3. La colección incluye variables preconfiguradas:
+   - `baseUrl`: `http://localhost:8080`
+   - `dragonId`, `jineteId`, `guaridaId`: UUIDs válidos correspondientes a los datos iniciales sembrados en `sql/02_datos.sql`.
+4. Contiene 4 carpetas con peticiones listas para ejecutar:
+   - **Dragones:** 7 peticiones (CRUD y consultas cruzadas con jinetes y guaridas).
+   - **Jinetes:** 6 peticiones (CRUD y consulta cruzada con dragones).
+   - **Guaridas:** 6 peticiones (CRUD y consulta cruzada con dragones).
+   - **Casos de Error:** Peticiones para verificar respuestas `400 Bad Request` (UUID inválido, campos vacíos), `404 Not Found` (recursos inexistentes) y `409 Conflict` (nombres duplicados o borrado restringido).
+
+### 7.3. Diagrama Entidad-Relación (Pata de Gallo)
+El modelo relacional visual se encuentra disponible en:
+- Archivo: [`docs/diagrama_relacional.jpg`](docs/diagrama_relacional.jpg)
+- Notación: Pata de Gallo (*Crow's Foot*), con especificación de cardinalidades `0..N` y `1..1` para las tablas intermedias, restricciones de unicidad (`UK`), claves primarias (`PK`), foráneas (`FK`) y tipos de datos.
+
+### 7.4. Análisis de Arquitectura Spring Boot (`SPRING.md`)
+En cumplimiento de las instrucciones de la asignatura, se elaboró un análisis detallado en [`docs/SPRING.md`](docs/SPRING.md) que explica:
+- Qué resuelve Spring Boot por nosotros (Inyección de dependencias, HikariCP, `JdbcTemplate`, `SimpleJdbcCall`, `@RestControllerAdvice`, etc.).
+- Qué hubiese implicado programar todo esto sin framework a mano con JDBC puro y sockets.
+- Dónde queda reflejado cada concepto en el código fuente de este repositorio.
+- Qué componentes **NO resuelve Spring** y requirieron diseño artesanal de negocio (validaciones de servicio, scripts DDL/DML, DTOs y Stored Procedures).
 
 ---
 
-## 8. Decisiones de Diseño y Limitaciones Conocidas
+## 8. Ejemplos de Peticiones con cURL
+
+A continuación se presentan ejemplos reales para interactuar con la API por terminal:
+
+```bash
+# 1. Listar todos los dragones (200 OK)
+curl -X GET http://localhost:8080/api/dragones
+
+# 2. Consultar un dragón por UUID (200 OK)
+curl -X GET http://localhost:8080/api/dragones/c01ce52a-6d84-4aea-a4d0-091eb54dbb7a
+
+# 3. Consultar jinetes de un dragón (200 OK)
+curl -X GET http://localhost:8080/api/dragones/c01ce52a-6d84-4aea-a4d0-091eb54dbb7a/jinetes
+
+# 4. Crear un dragón mediante Stored Procedure (201 Created)
+curl -X POST http://localhost:8080/api/dragones \
+  -H "Content-Type: application/json" \
+  -d '{"nombre": "Balerion", "color": "Negro", "tamano": "Colosal"}'
+
+# 5. Actualizar un dragón mediante Stored Procedure (200 OK)
+curl -X PUT http://localhost:8080/api/dragones \
+  -H "Content-Type: application/json" \
+  -d '{"id": "c01ce52a-6d84-4aea-a4d0-091eb54dbb7a", "nombre": "Syrax", "color": "Amarillo Dorado", "tamano": "Grande"}'
+
+# 6. Eliminar un dragón recién creado sin relaciones (204 No Content)
+curl -X DELETE http://localhost:8080/api/dragones/<UUID_DEL_DRAGON>
+
+# 7. Caso de Error: Nombre duplicado (409 Conflict)
+curl -X POST http://localhost:8080/api/dragones \
+  -H "Content-Type: application/json" \
+  -d '{"nombre": "Syrax", "color": "Dorado", "tamano": "Grande"}'
+```
+
+---
+
+## 9. Decisiones de Diseño y Limitaciones Conocidas
 
 1. **Integridad Foránea `RESTRICT` (Decisión D1):**  
    Las tablas intermedias no tienen `ON DELETE CASCADE`. Como la API no expone endpoints para re-asociar relaciones muchos a muchos, un registro con relaciones no puede borrarse por la API y retornará un código **409 Conflict** explicativo. Solo se pueden borrar registros creados por la API que no tengan relaciones asignadas.
@@ -155,3 +217,5 @@ Todos los errores devuelven un objeto JSON consistente:
    Las validaciones de sintaxis UUID, campos vacíos y duplicados se realizan expresamente en la capa Service para asegurar que no se omita ninguna regla de negocio independientemente del cliente HTTP.
 3. **Compatibilidad con `tamaño` y `tamano`:**  
    El modelo `Dragon` soporta tanto el campo `tamano` como el alias `"tamaño"` mediante `@JsonAlias("tamaño")` en Jackson.
+4. **DTOs de Creación:**  
+   Se diseñaron DTOs específicos (`DragonCrearDto`, `JineteCrearDto`, `GuaridaCrearDto`) para las peticiones `POST`, garantizando que el cliente no envíe un `id` y que este sea generado exclusivamente por el Stored Procedure en la base de datos.
